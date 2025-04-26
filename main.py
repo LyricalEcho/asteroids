@@ -5,6 +5,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+import scoring
 
 
 def main():
@@ -41,11 +42,14 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 print("Game over!")
+                print("Final Score:", scoring.score)
                 sys.exit()
             for shot in shots:
                 if shot.collides_with(asteroid):
                     shot.kill()
                     asteroid.split()
+                    scoring.score += 10
+                    print("Score:", scoring.score)
 
 
         screen.fill("black")
