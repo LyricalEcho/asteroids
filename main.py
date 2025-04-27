@@ -49,10 +49,14 @@ def main():
 
             for asteroid in asteroids:
                 if asteroid.collides_with(player):
-                    print("Game over!")
-                    print("Final Score:", score.count)
-                    
-                    sys.exit()
+                    if player.lives == 1:
+                        print("Game over!")
+                        print("Final Score:", score.count)                        
+                        sys.exit()
+                    else:
+                        player.updatelives(-1)
+                        asteroid.kill()
+                        print("Lives left:", player.lives)
                 for shot in shots:
                     if shot.collides_with(asteroid):
                         shot.kill()
