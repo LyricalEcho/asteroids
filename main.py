@@ -38,6 +38,9 @@ def main():
 
     game_paused = False
 
+    #####################################################
+    ## GAME LOOP ##
+    #####################################################
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -52,14 +55,14 @@ def main():
 
             for asteroid in asteroids:
                 if asteroid.collides_with(player):
-                    if player.lives == 1:
+                    if player.life_count == 1:
                         print("Game over!")
                         print("Final Score:", score.count)                        
                         sys.exit()
                     else:
                         player.updatelives(-1)
                         asteroid.kill()
-                        print("Lives left:", player.lives)
+                        print("Lives left:", player.life_count)
                 for shot in shots:
                     if shot.collides_with(asteroid):
                         shot.kill()
@@ -83,6 +86,8 @@ def main():
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
 
-
+#####################################################
+## RUN MAIN ##
+#####################################################
 if __name__ == "__main__":
     main()

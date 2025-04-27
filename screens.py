@@ -6,7 +6,7 @@ class Screens():
         pass
 
     def pause(self, screen):
-        font = pygame.font.Font(None, 36)
+        font = pygame.font.Font(None, 50)
         text = font.render("Paused", True, (255, 255, 255))
         text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
         screen.blit(text, text_rect)
