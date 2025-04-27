@@ -6,6 +6,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 from scoring import Score
+from screens import Screens
 
 
 def main():
@@ -30,6 +31,8 @@ def main():
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     score = Score(50, 50)
+
+    custom_screen = Screens()
 
     dt = 0
 
@@ -72,12 +75,9 @@ def main():
             score.draw(screen)
         
         else:
-            # Display pause screen
-            font = pygame.font.Font(None, 36)
-            text = font.render("Paused", True, (255, 255, 255))
-            text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-            screen.blit(text, text_rect)
+            custom_screen.pause(screen)
 
+        # Refresh display
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
