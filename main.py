@@ -71,7 +71,7 @@ def main():
             # Display pause screen
             font = pygame.font.Font(None, 36)
             text = font.render("Paused", True, (255, 255, 255))
-            text_rect = text.get_rect(center=(320, 240))
+            text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
             screen.blit(text, text_rect)
 
         pygame.display.flip()
