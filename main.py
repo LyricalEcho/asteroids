@@ -5,7 +5,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
-import scoring
+from scoring import Score
 
 
 def main():
@@ -29,33 +29,50 @@ def main():
     Player.containers = (updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    score = Score(50, 50)
 
     dt = 0
+
+    game_paused = False
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    game_paused = not game_paused
 
-        updatable.update(dt)
+        if not game_paused:
 
-        for asteroid in asteroids:
-            if asteroid.collides_with(player):
-                print("Game over!")
-                print("Final Score:", scoring.score)
-                sys.exit()
-            for shot in shots:
-                if shot.collides_with(asteroid):
-                    shot.kill()
-                    asteroid.split()
-                    scoring.score += 10
-                    print("Score:", scoring.score)
+            updatable.update(dt)
+
+            for asteroid in asteroids:
+                if asteroid.collides_with(player):
+                    print("Game over!")
+                    print("Final Score:", score.count)
+                    
+                    sys.exit()
+                for shot in shots:
+                    if shot.collides_with(asteroid):
+                        shot.kill()
+                        asteroid.split()
+                        score.score_up()
 
 
-        screen.fill("black")
+            screen.fill("black")
 
-        for obj in drawable:
-            obj.draw(screen)
+            for obj in drawable:
+                obj.draw(screen)
+            
+            score.draw(screen)
+        
+        else:
+            # Display pause screen
+            font = pygame.font.Font(None, 36)
+            text = font.render("Paused", True, (255, 255, 255))
+            text_rect = text.get_rect(center=(320, 240))
+            screen.blit(text, text_rect)
 
         pygame.display.flip()
 
